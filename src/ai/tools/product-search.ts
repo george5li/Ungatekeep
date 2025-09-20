@@ -51,8 +51,6 @@ export const searchProducts = ai.defineTool(
 
       if (shoppingResults.length === 0) {
         console.warn("No shopping results found for query:", input.query);
-        // It's better to return empty results than to throw an error here,
-        // as this is not a system failure.
         return { results: [] };
       }
 
@@ -66,7 +64,6 @@ export const searchProducts = ai.defineTool(
 
     } catch (error) {
       console.error("Error calling Google Custom Search API:", error);
-      // Re-throw the error so it can be caught by the action and displayed to the user.
       throw new Error(`The product search failed. Please check your API keys and configuration. Original error: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
