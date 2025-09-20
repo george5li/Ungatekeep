@@ -33,6 +33,7 @@ export default function RootLayout({
           'min-h-screen bg-background font-body antialiased',
           'font-body'
         )}
+        suppressHydrationWarning
       >
         <Header />
         {children}
