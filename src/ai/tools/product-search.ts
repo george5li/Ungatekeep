@@ -33,23 +33,9 @@ export const searchProducts = ai.defineTool(
     const searchEngineId = process.env.GOOGLE_CUSTOM_SEARCH_ENGINE_ID;
 
     if (!apiKey || !searchEngineId) {
-      console.warn("Google Custom Search API key or Search Engine ID is not set. Returning mock data.");
-      // Fallback to mock data if API keys are not provided
-      const querySlug = input.query.toLowerCase().replace(/\s+/g, '-');
-      return {
-        results: [
-          {
-            title: `Classic ${input.query}`,
-            url: `https://example.com/product/classic-${querySlug}`,
-            imageUrl: `https://picsum.photos/seed/classic-${querySlug}/400/500`,
-          },
-          {
-            title: `Modern ${input.query}`,
-            url: `https://example.com/product/modern-${querySlug}`,
-            imageUrl: `https://picsum.photos/seed/modern-${querySlug}/400/500`,
-          },
-        ],
-      };
+      const errorMessage = "Google Custom Search API key or Search Engine ID is not set in the .env file.";
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
 
     try {
@@ -65,7 +51,9 @@ export const searchProducts = ai.defineTool(
 
       if (shoppingResults.length === 0) {
         console.warn("No shopping results found for query:", input.query);
-        console.log("Full API Response:", JSON.stringify(response, null, 2));
+        // It's better to return empty results than to throw an error here,
+        // as this is not a system failure.
+        return { results: [] };
       }
 
       const formattedResults = shoppingResults.slice(0, 5).map((item: any) => ({
@@ -78,23 +66,8 @@ export const searchProducts = ai.defineTool(
 
     } catch (error) {
       console.error("Error calling Google Custom Search API:", error);
-      // Fallback to mock data on error to ensure UI still works
-      console.warn("Returning mock data due to API error.");
-      const querySlug = input.query.toLowerCase().replace(/\s+/g, '-');
-      return {
-        results: [
-           {
-            title: `Error Fallback: Classic ${input.query}`,
-            url: `https://example.com/product/classic-${querySlug}`,
-            imageUrl: `https://picsum.photos/seed/error-classic-${querySlug}/400/500`,
-          },
-          {
-            title: `Error Fallback: Modern ${input.query}`,
-            url: `https://example.com/product/modern-${querySlug}`,
-            imageUrl: `https://picsum.photos/seed/error-modern-${querySlug}/400/500`,
-          },
-        ]
-      };
+      // Re-throw the error so it can be caught by the action and displayed to the user.
+      throw new Error(`The product search failed. Please check your API keys and configuration. Original error: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 );
