@@ -26,12 +26,37 @@ export const searchProducts = ai.defineTool(
     }),
   },
   async input => {
-    // In a real application, you would implement a call to a product search API here.
-    // For this prototype, we'll return some mock data based on a web search.
-    console.log(`Product search for: ${input.query}`);
+    console.log(`Performing a web search for: "${input.query}"`);
 
-    // This is a placeholder for a real web search.
-    // We'll simulate finding some products based on the query.
+    // =================================================================
+    // TODO: Replace this section with a real product search API call.
+    //
+    // You can use services like Google Shopping Content API, SerpAPI,
+    // or any other product search provider.
+    //
+    // Example using a hypothetical search API client:
+    //
+    // try {
+    //   const searchProvider = new YourSearchProvider({ apiKey: process.env.YOUR_API_KEY });
+    //   const apiResults = await searchProvider.search(input.query);
+    //
+    //   // Ensure the results from your API are mapped to the expected output schema.
+    //   const formattedResults = apiResults.map(item => ({
+    //     title: item.productName,
+    //     url: item.productLink,
+    //     imageUrl: item.imageLink,
+    //   }));
+    //
+    //   return { results: formattedResults };
+    //
+    // } catch (error) {
+    //   console.error("Error calling product search API:", error);
+    //   // Return an empty array or handle the error as appropriate.
+    //   return { results: [] };
+    // }
+    // =================================================================
+
+    // For now, we will return mock data as a placeholder.
     const querySlug = input.query.toLowerCase().replace(/\s+/g, '-');
     
     return {
