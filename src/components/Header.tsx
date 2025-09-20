@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart, Shirt } from 'lucide-react';
+import { Download, Heart, Shirt } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -27,6 +27,12 @@ const Header = () => {
       label: 'Favorites',
       icon: Heart,
       active: pathname === '/favorites',
+    },
+     {
+      href: '/download',
+      label: 'Download',
+      icon: Download,
+      active: pathname === '/download',
     },
   ];
 
