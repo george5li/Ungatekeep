@@ -1,3 +1,70 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "t-shirt",
+      "description": "A plain t-shirt",
+      "imageUrl": "https://picsum.photos/seed/1/400/600",
+      "imageHint": "t-shirt"
+    },
+    {
+      "id": "jeans",
+      "description": "A pair of denim jeans",
+      "imageUrl": "https://picsum.photos/seed/2/400/600",
+      "imageHint": "blue jeans"
+    },
+    {
+      "id": "dress",
+      "description": "A simple dress",
+      "imageUrl": "https://picsum.photos/seed/3/400/600",
+      "imageHint": "black dress"
+    },
+    {
+      "id": "sneakers",
+      "description": "A pair of sneakers",
+      "imageUrl": "https://picsum.photos/seed/4/400/600",
+      "imageHint": "white sneakers"
+    },
+    {
+      "id": "jacket",
+      "description": "A stylish jacket",
+      "imageUrl": "https://picsum.photos/seed/5/400/600",
+      "imageHint": "denim jacket"
+    },
+    {
+      "id": "sweater",
+      "description": "A cozy sweater",
+      "imageUrl": "https://picsum.photos/seed/6/400/600",
+      "imageHint": "knit sweater"
+    },
+    {
+      "id": "handbag",
+      "description": "A leather handbag",
+      "imageUrl": "https://picsum.photos/seed/7/400/600",
+      "imageHint": "leather handbag"
+    },
+    {
+      "id": "sunglasses",
+      "description": "A pair of sunglasses",
+      "imageUrl": "https://picsum.photos/seed/8/400/600",
+      "imageHint": "sunglasses"
+    },
+    {
+        "id": "hat",
+        "description": "A stylish hat",
+        "imageUrl": "https://picsum.photos/seed/9/400/600",
+        "imageHint": "fedora hat"
+    },
+    {
+        "id": "boots",
+        "description": "A pair of boots",
+        "imageUrl": "https://picsum.photos/seed/10/400/600",
+        "imageHint": "leather boots"
+    },
+    {
+      "id": "generic-clothing",
+      "description": "A generic clothing item",
+      "imageUrl": "https://picsum.photos/seed/11/400/600",
+      "imageHint": "clothing"
+    }
+  ]
 }
