@@ -96,8 +96,8 @@ export default function HomePage() {
         </div>
       ) : (
         <div className="flex flex-col items-center text-center space-y-8">
-            <div className="space-y-2">
-                <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            <div className="space-y-4">
+                <h1 className="text-5xl md:text-6xl font-bold tracking-tight font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                     Discover Your Style
                 </h1>
                 <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
