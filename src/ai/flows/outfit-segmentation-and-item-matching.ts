@@ -31,7 +31,7 @@ const OutfitSegmentationAndItemMatchingOutputSchema = z.object({
       itemType: z.string().describe('The type of clothing item (e.g., shirt, pants, shoes).'),
       matchingItems: z.array(
         z.object({
-          imageUrl: z.string().describe('URL of the matching item image.'),
+          imageUrl: z.string().optional().describe('URL of the matching item image.'),
           link: z.string().describe('Link to purchase the item.'),
           description: z.string().describe('A short description of the item.'),
         })

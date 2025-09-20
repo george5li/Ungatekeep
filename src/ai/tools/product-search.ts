@@ -20,7 +20,7 @@ export const searchProducts = ai.defineTool(
         z.object({
           title: z.string().describe('The title of the product.'),
           url: z.string().describe('The URL of the product page.'),
-          imageUrl: z.string().describe('The URL of the product image.'),
+          imageUrl: z.string().optional().describe('The URL of the product image.'),
         })
       ),
     }),
@@ -72,17 +72,12 @@ export const searchProducts = ai.defineTool(
       const formattedResults = shoppingResults
         .map((item: any) => {
           const imageUrl = item.pagemap?.cse_image?.[0]?.src || item.pagemap?.product?.[0]?.image;
-          // If there's no image, we can't use this result.
-          if (!imageUrl) {
-            return null;
-          }
           return {
             title: item.title,
             url: item.link,
             imageUrl: imageUrl,
           };
-        })
-        .filter(Boolean); // Filter out any null results
+        });
 
       return { results: formattedResults.slice(0, 5) };
 
