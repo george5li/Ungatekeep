@@ -25,10 +25,10 @@ const ClothingItemSchema = z.object({
   name: z.string().describe('The name of the clothing item.'),
   description: z.string().describe('A description of the clothing item.'),
   purchaseLinks: z
-    .array(z.string())
+    .array(z.string().url())
     .describe('Direct purchase links for the clothing item.'),
   thriftStoreRecommendations: z
-    .array(z.string())
+    .array(z.string().url())
     .describe('Thrift store recommendations for the item, e.g. Depop links'),
 });
 
@@ -52,6 +52,8 @@ const prompt = ai.definePrompt({
   prompt: `You are an AI fashion assistant. Your task is to identify the clothing items in the image provided and return links to purchase similar items.
 
 Analyze the image and identify each clothing item. For each item, provide a name, description, and an array of direct purchase links. Also include an array of thrift store recommendations like Depop when available.
+
+IMPORTANT: The purchase links must lead directly to a product page for an item that is visually similar to the one in the image. Do not provide links to general search results, category pages, or out-of-stock items. Verify that the links are for products that closely match the style, color, and type of the item in the photo.
 
 Image: {{media url=photoDataUri}}
 `,
