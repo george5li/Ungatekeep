@@ -41,7 +41,7 @@ export const searchProducts = ai.defineTool(
       const searchParams = new URLSearchParams({
         key: apiKey,
         cx: searchEngineId,
-        q: `${input.query} clothing`,
+        q: `${input.query}`,
         searchType: 'image', // Required for image-based searches, which is what shopping results rely on
         tbm: 'shop',
       });
@@ -69,14 +69,22 @@ export const searchProducts = ai.defineTool(
         return { results: [] };
       }
 
-      const formattedResults = shoppingResults.slice(0, 5).map((item: any) => ({
-        title: item.title,
-        url: item.link,
-        // Safely access nested properties for the image URL
-        imageUrl: item.pagemap?.cse_image?.[0]?.src || item.pagemap?.product?.[0]?.image,
-      }));
+      const formattedResults = shoppingResults
+        .map((item: any) => {
+          const imageUrl = item.pagemap?.cse_image?.[0]?.src || item.pagemap?.product?.[0]?.image;
+          // If there's no image, we can't use this result.
+          if (!imageUrl) {
+            return null;
+          }
+          return {
+            title: item.title,
+            url: item.link,
+            imageUrl: imageUrl,
+          };
+        })
+        .filter(Boolean); // Filter out any null results
 
-      return { results: formattedResults };
+      return { results: formattedResults.slice(0, 5) };
 
     } catch (error) {
       console.error("Error during product search fetch:", error);
