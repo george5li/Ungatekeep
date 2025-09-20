@@ -12,12 +12,13 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {searchProducts} from '../tools/product-search';
 
 const OutfitSegmentationAndItemMatchingInputSchema = z.object({
   photoDataUri: z
     .string()
     .describe(
-      'A photo of an outfit, as a data URI that must include a MIME type and use Base64 encoding. Expected format: \'data:<mimetype>;base64,<encoded_data>\'.' //Corrected typo here
+      "A photo of an outfit, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'." //Corrected typo here
     ),
   styleProfile: z.string().optional().describe('The style profile of the user.'),
 });
@@ -53,16 +54,17 @@ const outfitSegmentationAndItemMatchingPrompt = ai.definePrompt({
   name: 'outfitSegmentationAndItemMatchingPrompt',
   input: {schema: OutfitSegmentationAndItemMatchingInputSchema},
   output: {schema: OutfitSegmentationAndItemMatchingOutputSchema},
+  tools: [searchProducts],
   prompt: `You are an AI fashion assistant. You will analyze an image of an outfit and identify the individual clothing items.
 
-  For each item, you will find visually similar items available for purchase online. Consider the user's style profile when finding matching items.
+  For each item, use the productSearch tool to find visually similar items available for purchase online. Populate the matchingItems array with the results from the search tool. Use the product title for the description, the product url for the link, and the product imageUrl for the imageUrl.
 
   Based on the outfit, identify the overall style (e.g., casual, formal, bohemian).
   Recommend additional pieces that would complement the outfit based on the identified style.
   Update the user's style profile based on the analyzed outfit.
 
   Here is the outfit image: {{media url=photoDataUri}}
-  {% if styleProfile %}Here is the user's current style profile: {{{styleProfile}}}{% endif %}
+  {{#if styleProfile}}Here is the user's current style profile: {{{styleProfile}}}{{/if}}
   Return the segmented items with matching items, the updated style profile, the identified style, and recommended pieces.
   `,
 });
