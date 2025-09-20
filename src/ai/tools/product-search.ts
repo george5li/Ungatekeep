@@ -78,7 +78,23 @@ export const searchProducts = ai.defineTool(
 
     } catch (error) {
       console.error("Error calling Google Custom Search API:", error);
-      return { results: [] };
+      // Fallback to mock data on error to ensure UI still works
+      console.warn("Returning mock data due to API error.");
+      const querySlug = input.query.toLowerCase().replace(/\s+/g, '-');
+      return {
+        results: [
+           {
+            title: `Error Fallback: Classic ${input.query}`,
+            url: `https://example.com/product/classic-${querySlug}`,
+            imageUrl: `https://picsum.photos/seed/error-classic-${querySlug}/400/500`,
+          },
+          {
+            title: `Error Fallback: Modern ${input.query}`,
+            url: `https://example.com/product/modern-${querySlug}`,
+            imageUrl: `https://picsum.photos/seed/error-modern-${querySlug}/400/500`,
+          },
+        ]
+      };
     }
   }
 );
