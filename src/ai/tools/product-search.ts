@@ -42,6 +42,7 @@ export const searchProducts = ai.defineTool(
         key: apiKey,
         cx: searchEngineId,
         q: `${input.query} clothing`,
+        searchType: 'image', // Required for image-based searches, which is what shopping results rely on
         tbm: 'shop',
       });
       const response = await fetch(`https://www.googleapis.com/customsearch/v1?${searchParams.toString()}`);
@@ -50,21 +51,28 @@ export const searchProducts = ai.defineTool(
         const errorBody = await response.json();
         const apiErrorMessage = errorBody?.error?.message || 'Unknown API error';
         console.error("Error calling Google Custom Search API:", apiErrorMessage);
+        // Provide a more descriptive error message to the user
+        if (response.status === 404) {
+            throw new Error(`The product search failed: Requested entity was not found. Please verify your Search Engine ID and ensure 'Shopping search' is enabled in the control panel.`);
+        }
         throw new Error(`The product search failed: ${apiErrorMessage}`);
       }
       
       const data = await response.json();
 
+      // The shopping results are in the 'items' array when using tbm=shop
       const shoppingResults = data.items || [];
 
       if (shoppingResults.length === 0) {
         console.warn("No shopping results found for query:", input.query);
+        // Return an empty array instead of throwing an error, as this is not a technical failure.
         return { results: [] };
       }
 
       const formattedResults = shoppingResults.slice(0, 5).map((item: any) => ({
         title: item.title,
         url: item.link,
+        // Safely access nested properties for the image URL
         imageUrl: item.pagemap?.cse_image?.[0]?.src || item.pagemap?.product?.[0]?.image,
       }));
 
@@ -72,7 +80,8 @@ export const searchProducts = ai.defineTool(
 
     } catch (error) {
       console.error("Error during product search fetch:", error);
-      throw new Error(`The product search failed. Please check your API keys and configuration. Original error: ${error instanceof Error ? error.message : String(error)}`);
+      // Re-throw the error to be caught by the action and displayed in the UI
+      throw error;
     }
   }
 );
