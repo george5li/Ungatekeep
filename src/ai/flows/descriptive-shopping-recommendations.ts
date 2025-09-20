@@ -1,4 +1,3 @@
-// src/ai/flows/descriptive-shopping-recommendations.ts
 'use server';
 
 /**

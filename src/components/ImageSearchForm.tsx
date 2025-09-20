@@ -46,7 +46,7 @@ const ImageSearchForm = ({
     const droppedFile = e.dataTransfer.files?.[0];
     if (droppedFile && droppedFile.type.startsWith('image/')) {
        if (fileInputRef.current) {
-        fileInputrRef.current.files = e.dataTransfer.files;
+        fileInputRef.current.files = e.dataTransfer.files;
         handleFileChange({ target: fileInputRef.current } as any);
       }
     }
