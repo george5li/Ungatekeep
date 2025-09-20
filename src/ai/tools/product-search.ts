@@ -63,6 +63,11 @@ export const searchProducts = ai.defineTool(
       
       const shoppingResults = response.shopping_results || [];
 
+      if (shoppingResults.length === 0) {
+        console.warn("No shopping results found for query:", input.query);
+        console.log("Full API Response:", JSON.stringify(response, null, 2));
+      }
+
       const formattedResults = shoppingResults.slice(0, 5).map((item: any) => ({
         title: item.title,
         url: item.link,
