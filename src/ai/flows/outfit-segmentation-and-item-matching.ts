@@ -57,7 +57,7 @@ const outfitSegmentationAndItemMatchingPrompt = ai.definePrompt({
   tools: [searchProducts],
   prompt: `You are an AI fashion assistant. You will analyze an image of an outfit and identify the individual clothing items.
 
-  For each item, use the productSearch tool with a general query for the item type (e.g., 'mens black t-shirt', 'womens blue jeans') to find visually similar items available for purchase online. Populate the matchingItems array with the results from the search tool. Use the product title for the description, the product url for the link, and the product imageUrl for the imageUrl.
+  For each item, use the productSearch tool with a general query for the item type (e.g., 'mens black t-shirt', 'womens blue jeans') to find visually similar items available for purchase online. Populate the matchingItems array with the results from the search tool. Instead of using the raw product title, generate a concise and helpful description for each item based on its title and image. Use the product url for the link, and the product imageUrl for the imageUrl.
 
   Based on the outfit, identify the overall style (e.g., casual, formal, bohemian).
   Recommend additional pieces that would complement the outfit based on the identified style.
