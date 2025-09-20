@@ -27,24 +27,29 @@ export const searchProducts = ai.defineTool(
   },
   async input => {
     // In a real application, you would implement a call to a product search API here.
-    // For this prototype, we'll return some mock data.
+    // For this prototype, we'll return some mock data based on a web search.
     console.log(`Product search for: ${input.query}`);
+
+    // This is a placeholder for a real web search.
+    // We'll simulate finding some products based on the query.
+    const querySlug = input.query.toLowerCase().replace(/\s+/g, '-');
+    
     return {
       results: [
         {
           title: `Classic ${input.query}`,
-          url: 'https://example.com/product/123',
-          imageUrl: 'https://picsum.photos/seed/product1/400/500',
+          url: `https://example.com/product/classic-${querySlug}`,
+          imageUrl: `https://picsum.photos/seed/classic-${querySlug}/400/500`,
         },
         {
           title: `Modern ${input.query}`,
-          url: 'https://example.com/product/456',
-          imageUrl: 'https://picsum.photos/seed/product2/400/500',
+          url: `https://example.com/product/modern-${querySlug}`,
+          imageUrl: `https://picsum.photos/seed/modern-${querySlug}/400/500`,
         },
         {
           title: `Vintage ${input.query}`,
-          url: 'https://example.com/product/789',
-          imageUrl: 'https://picsum.photos/seed/product3/400/500',
+          url: `https://example.com/product/vintage-${querySlug}`,
+          imageUrl: `https://picsum.photos/seed/vintage-${querySlug}/400/500`,
         },
       ],
     };
