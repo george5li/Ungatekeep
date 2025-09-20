@@ -7,7 +7,6 @@
  */
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { getJson } from "google-search-results-nodejs";
 
 export const searchProducts = ai.defineTool(
   {
@@ -39,15 +38,24 @@ export const searchProducts = ai.defineTool(
     }
 
     try {
-      const response = await getJson({
-        api_key: apiKey,
-        q: `${input.query} clothing`,
-        engine: "google",
+      const searchParams = new URLSearchParams({
+        key: apiKey,
         cx: searchEngineId,
+        q: `${input.query} clothing`,
         tbm: 'shop',
       });
+      const response = await fetch(`https://www.googleapis.com/customsearch/v1?${searchParams.toString()}`);
       
-      const shoppingResults = response.shopping_results || [];
+      if (!response.ok) {
+        const errorBody = await response.json();
+        const apiErrorMessage = errorBody?.error?.message || 'Unknown API error';
+        console.error("Error calling Google Custom Search API:", apiErrorMessage);
+        throw new Error(`The product search failed: ${apiErrorMessage}`);
+      }
+      
+      const data = await response.json();
+
+      const shoppingResults = data.items || [];
 
       if (shoppingResults.length === 0) {
         console.warn("No shopping results found for query:", input.query);
@@ -57,13 +65,13 @@ export const searchProducts = ai.defineTool(
       const formattedResults = shoppingResults.slice(0, 5).map((item: any) => ({
         title: item.title,
         url: item.link,
-        imageUrl: item.thumbnail,
+        imageUrl: item.pagemap?.cse_image?.[0]?.src || item.pagemap?.product?.[0]?.image,
       }));
 
       return { results: formattedResults };
 
     } catch (error) {
-      console.error("Error calling Google Custom Search API:", error);
+      console.error("Error during product search fetch:", error);
       throw new Error(`The product search failed. Please check your API keys and configuration. Original error: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
