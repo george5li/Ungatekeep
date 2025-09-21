@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Outfit Finder',
+  title: 'Ungatekeep',
   description: 'Find your style, one outfit at a time.',
 };
 

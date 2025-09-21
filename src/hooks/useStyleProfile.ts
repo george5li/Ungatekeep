@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-const STYLE_PROFILE_KEY = 'outfitFinderStyleProfile';
+const STYLE_PROFILE_KEY = 'ungatekeepStyleProfile';
 
 export function useStyleProfile(): [string, (newProfile: string) => void] {
   const [profile, setProfile] = useState<string>('Your style profile is currently empty. Analyze some outfits to build it!');

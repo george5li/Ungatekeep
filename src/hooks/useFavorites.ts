@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-const FAVORITES_KEY = 'outfitFinderFavorites';
+const FAVORITES_KEY = 'ungatekeepFavorites';
 
 export type FavoriteItem = {
   imageUrl?: string;
