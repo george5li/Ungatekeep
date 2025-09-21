@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Montserrat', 'sans-serif'],
-        headline: ['Bebas Neue', 'sans-serif'],
+        body: ['Helvetica', 'Arial', 'sans-serif'],
+        headline: ['Helvetica', 'Arial', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
