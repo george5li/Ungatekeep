@@ -39,7 +39,7 @@ const OutfitSegmentationAndItemMatchingOutputSchema = z.object({
     })
   ).
 describe('A list of segmented items with their matching items.'),
-  updatedStyleProfile: z.string().optional().describe('The updated style profile of the user based on the outfit.'),
+  updatedStyleProfile: z.string().optional().describe('Your updated style profile based on the outfit.'),
   identifiedStyle: z.string().describe('The identified style of the outfit (e.g., casual, formal, bohemian).'),
   recommendedPieces: z.array(z.string()).describe('Recommended additional pieces based on the identified style.'),
 });
@@ -61,10 +61,11 @@ const outfitSegmentationAndItemMatchingPrompt = ai.definePrompt({
 
   Based on the outfit, identify the overall style (e.g., casual, formal, bohemian).
   Recommend additional pieces that would complement the outfit based on the identified style.
-  Update the user's style profile based on the analyzed outfit.
+  
+  Update the user's style profile based on the analyzed outfit. When you write the style profile, address the user directly as "you" (e.g., "You seem to like...").
 
   Here is the outfit image: {{media url=photoDataUri}}
-  {{#if styleProfile}}Here is the user's current style profile: {{{styleProfile}}}{{/if}}
+  {{#if styleProfile}}Here is your current style profile: {{{styleProfile}}}{{/if}}
   Return the segmented items with matching items, the updated style profile, the identified style, and recommended pieces.
   `,
 });

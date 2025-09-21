@@ -32,7 +32,7 @@ const UpdateStylePreferencesOutputSchema = z.object({
   updatedPreferences: z
     .string()
     .describe(
-      'The updated style preferences of the user, as a JSON string.'
+      'Your updated style preferences, as a JSON string.'
     ),
 });
 export type UpdateStylePreferencesOutput = z.infer<
@@ -50,13 +50,15 @@ const prompt = ai.definePrompt({
   input: {schema: UpdateStylePreferencesInputSchema},
   output: {schema: UpdateStylePreferencesOutputSchema},
   prompt: `You are an AI fashion stylist. Given a photo of an outfit and a
- description, you will analyze the outfit and update the user\'s style
- preferences accordingly.  The current user preferences are: {{{currentPreferences}}}.
+ description, you will analyze the outfit and update the style
+ preferences accordingly. Address the user directly as "you" (e.g., "You seem to like...").
+ 
+ The current style preferences are: {{{currentPreferences}}}.
 
 Description: {{{description}}}
 Photo: {{media url=photoDataUri}}
 
-Based on this outfit, how would you update the user\'s style preferences? Return the updated preferences as a JSON string. Be sure to include any style keywords associated with the outfit in the updated preferences.
+Based on this outfit, how would you update the style preferences? Return the updated preferences as a JSON string. Be sure to include any style keywords associated with the outfit in the updated preferences.
 
 Ensure that the output is a valid JSON string.
 `, // Added a system message and instructions for output format
