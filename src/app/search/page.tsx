@@ -49,7 +49,7 @@ function SearchResults({ results }: { results: DescriptiveOutfitSearchOutput }) 
                         <p className="text-sm text-center text-muted-foreground flex-grow">{item.description}</p>
                         <Button asChild className="w-full">
                             <Link href={item.link} target="_blank" rel="noopener noreferrer">
-                                View Item <ExternalLink className="ml-2" />
+                                View Item <ExternalLink className="ml-2" size={16} />
                             </Link>
                         </Button>
                     </CardContent>
