@@ -35,14 +35,14 @@ export function ResultsDisplay({ results }: ResultsDisplayProps) {
       </Card>
       
       <div className="space-y-8">
-        <h2 className="text-3xl font-headline text-center flex items-center justify-center gap-3">
+        <h2 className="text-3xl font-headline text-center flex items-center justify-center gap-3 tracking-wider">
             <Shirt className="w-8 h-8 text-accent" />
             Your Outfit's Pieces
         </h2>
         {segmentedItems?.map((item, index) => (
           <Card key={index} className="overflow-hidden shadow-lg bg-card/80 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="capitalize text-2xl font-headline">{item.itemType}</CardTitle>
+              <CardTitle className="capitalize text-2xl font-headline tracking-wider">{item.itemType}</CardTitle>
               <CardDescription>Similar items found for you to shop</CardDescription>
             </CardHeader>
             <CardContent>
@@ -100,7 +100,7 @@ export function ResultsDisplay({ results }: ResultsDisplayProps) {
       {recommendedPieces && recommendedPieces.length > 0 && (
         <Card className="shadow-lg bg-card/80 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-2xl font-headline flex items-center gap-2">
+            <CardTitle className="text-2xl font-headline flex items-center gap-2 tracking-wider">
                 <Lightbulb className="text-accent" />
                 Style Recommendations
             </CardTitle>
