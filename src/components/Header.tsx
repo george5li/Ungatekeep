@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shirt, User } from 'lucide-react';
+import { Shirt, User, Heart, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Header() {
@@ -14,10 +14,23 @@ export function Header() {
             </span>
           </Link>
         </div>
-        <nav className="flex flex-1 items-center space-x-2 justify-end">
+        <nav className="flex flex-1 items-center space-x-1 justify-end">
           <Button variant="ghost" asChild>
-            <Link href="/">
-              Home
+            <Link href="/" className="flex items-center">
+              <span className="hidden sm:inline">Analyze</span>
+              <span className="sm:hidden">Analyze</span>
+            </Link>
+          </Button>
+           <Button variant="ghost" asChild>
+            <Link href="/search" className="flex items-center">
+              <Search className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Search</span>
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="/favorites" className="flex items-center">
+              <Heart className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Favorites</span>
             </Link>
           </Button>
           <Button variant="ghost" asChild>
