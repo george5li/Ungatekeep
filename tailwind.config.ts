@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Times New Roman', 'Times', 'serif'],
-        headline: ['Times New Roman', 'Times', 'serif'],
+        body: ['Helvetica', 'Arial', 'sans-serif'],
+        headline: ['Helvetica', 'Arial', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
